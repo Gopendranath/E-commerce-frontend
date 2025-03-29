@@ -1,14 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Products from "./pages/Products";
+import Home from "./pages/Home.jsx";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout"
 import Wishlist from "./pages/Wishlist"
 import Login from "./pages/Login";
-import Categoryitems from "./pages/Categoryitems";
 import Footer from "./components/Footer";
-import Productitem from "./pages/Productitem";
 import Notfound from "./pages/Notfound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -18,9 +16,7 @@ const App = () => {
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Products />} />
-        <Route path="/category/:id" element={<Categoryitems />} />
-        <Route path="/product/:id" element={<Productitem />} />
+        <Route path="/" element={<Home />} />
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
         <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
         <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
