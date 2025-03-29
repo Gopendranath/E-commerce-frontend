@@ -6,19 +6,28 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout"
 import Wishlist from "./pages/Wishlist"
 import Login from "./pages/Login";
+import Categoryitems from "./pages/Categoryitems";
+import Footer from "./components/Footer";
+import Productitem from "./pages/Productitem";
+import Notfound from "./pages/Notfound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
+
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <Navbar />
       <Routes>
         <Route path="/" element={<Products />} />
+        <Route path="/category/:id" element={<Categoryitems />} />
+        <Route path="/product/:id" element={<Productitem />} />
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
         <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
         <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Notfound />} />
       </Routes>
+      <Footer />
     </div>
   )
 }

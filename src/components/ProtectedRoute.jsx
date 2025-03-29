@@ -1,13 +1,9 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react'
 
-const ProtectedRoute = ({ children }) => {
-  // Get authentication token from Redux store using useSelector
-  const token = useSelector((state) => state.auth.token);
-  
-  // Check if token exists; if yes, return children; otherwise, redirect to login page
-  return token ? children : <Navigate to="/login" />
-};
+const ProtectedRoute = () => {
+  return (
+    <div>ProtectedRoute</div>
+  )
+}
 
-export default ProtectedRoute;
+export default ProtectedRoute
