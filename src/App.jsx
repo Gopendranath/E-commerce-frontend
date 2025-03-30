@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home.jsx";
 import Cart from "./pages/Cart";
@@ -27,6 +29,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
+      <Toaster />
       <Footer />
     </div>
   )
