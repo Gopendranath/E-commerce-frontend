@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home.jsx";
@@ -15,10 +16,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Selectedfeature from "./pages/Selectedfeature.jsx";
 
 const App = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
 
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
-      <Navbar /> 
+    <div className="min-h-screen bg-purple-100">
+      {!isLoginPage && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
@@ -30,7 +33,7 @@ const App = () => {
         <Route path="*" element={<Notfound />} />
       </Routes>
       <Toaster />
-      <Footer />
+      {!isLoginPage && <Footer />}
     </div>
   )
 }
