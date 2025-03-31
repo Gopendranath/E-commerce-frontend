@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-3/12">
+      <div className="w-sm sm:max-w-md md:max-w-lg px-4 py-8 bg-white shadow sm:rounded-lg mt-20">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">E-commerce</h2>
         </div>
