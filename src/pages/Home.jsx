@@ -5,14 +5,14 @@ import { logout } from "../redux/slices/authSlice"
 
 
 const Home = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector((state) => state.auth.token);
 
     const handleLogout = () => {
         dispatch(logout());
-        dispatch(clearCart());
-        navigate("/login")
+        // dispatch(clearCart());
+        // navigate("/login")
     };
 
 
