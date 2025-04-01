@@ -12,8 +12,11 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [profilemenu, setProfilemenu] = useState(false);
-  const [cartcount, setCartcount] = useState(0);
+  const [cartcount, setCartcount] = useState(2);
+  const [wishlistcount, setWishlistcount] = useState(2);
   const profileMenuRef = useRef(null);
+
+  // console.log(cartcount)
 
   const { token } = useSelector((state) => state.auth);
 
@@ -23,18 +26,6 @@ const Navbar = () => {
     dispatch(logout());
   };
 
-  const getCartCount = () => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    if (cart) {
-      setCartcount(cart.length);
-    } else {
-      setCartcount(0);
-    }
-  };
-
-  useEffect(() => {
-    getCartCount();
-  }, []);
 
   // Check screen size on mount and when window resizes
   useEffect(() => {
@@ -59,6 +50,8 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [profileMenuRef]);
+
+  // Close mobile menu when clicking outside
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -102,24 +95,24 @@ const Navbar = () => {
 
             {/* Icons */}
             <div className="flex items-center">
-              <div className="flex space-x-6 items-center">
+              <div className={`flex ${isSmallScreen ? 'space-x-0': 'space-x-6'} items-center`}>
                 <div className="cursor-pointer hover:text-purple-500 transition-colors duration-300">
                   <LuSearch size={20} />
                 </div>
                 <NavLink to="/cart" className={({ isActive }) =>
                   isActive
-                    ? "cursor-pointer text-purple-600 transition-colors duration-300"
-                    : "cursor-pointer hover:text-purple-500 transition-colors duration-300"
+                    ? `cursor-pointer text-purple-600 transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''}` // Added 'relative' here
+                    : `cursor-pointer hover:text-purple-500 transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''}` // Added 'relative' here
                 }>
                   <FaCartArrowDown size={20} />
-                  <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{cartcount}</p>
+                  <p className={`absolute inset-3 right-[-5px] top-[-5px] w-4 text-center leading-4 bg-purple-600 text-white aspect-square rounded-full text-[8px] ${cartcount === 0 ? "hidden" : "block"}`}>{cartcount}</p>
                 </NavLink>
                 {token ? (
-                  <div className="cursor-pointer transition-colors duration-300 relative" ref={profileMenuRef}>
-                    <CgProfile 
-                      size={20} 
-                      className='hover:text-purple-500' 
-                      onClick={toggleProfileMenu} 
+                  <div className={`cursor-pointer transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''} `} ref={profileMenuRef}>
+                    <CgProfile
+                      size={20}
+                      className='hover:text-purple-500'
+                      onClick={toggleProfileMenu}
                     />
                     {profilemenu && (
                       <div className="absolute top-8 right-0 bg-white border border-gray-300 rounded-lg shadow-md p-2 z-50">
@@ -133,7 +126,7 @@ const Navbar = () => {
                           <Link to="/wishlist" onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Wishlist
                           </Link>
-                          <Link to="/profile"  onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
+                          <Link to="/profile" onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Profile
                           </Link>
                           <div className="border-t border-gray-200 mt-1 pt-1">
@@ -170,17 +163,38 @@ const Navbar = () => {
           {isSmallScreen && isMobileMenuOpen && (
             <div className="md:hidden mt-4 bg-gray-50 p-4 rounded-lg">
               <div className="flex flex-col space-y-3">
-                <NavLink to="/" className={navLinkClass} end>
+                <NavLink to="/" className={navLinkClass} onClick={toggleMobileMenu} end>
                   Home
                 </NavLink>
-                <NavLink to="/category/all" className={navLinkClass}>
+                <NavLink to="/category/all" className={navLinkClass} onClick={toggleMobileMenu}>
                   Collections
                 </NavLink>
-                <NavLink to="/about" className={navLinkClass}>
+                <NavLink to="/about" className={navLinkClass} onClick={toggleMobileMenu}>
                   About
                 </NavLink>
-                <NavLink to="/contact" className={navLinkClass}>
+                <NavLink to="/contact" className={navLinkClass} onClick={toggleMobileMenu}>
                   Contact
+                </NavLink>
+                <NavLink to="/wishlist" className={navLinkClass} onClick={toggleMobileMenu}>
+                  Wishlist ({wishlistcount > 0 ? wishlistcount : 0})
+                </NavLink>
+                <NavLink to="/cart" className={navLinkClass} onClick={toggleMobileMenu}>
+                  View Cart ({cartcount > 0 ? cartcount : 0})
+                </NavLink>
+                <NavLink to="/orders" className={navLinkClass} onClick={toggleMobileMenu}>
+                  Your Orders
+                </NavLink>
+                <NavLink to="/profile" className={navLinkClass} onClick={toggleMobileMenu}>
+                  Your Profile
+                </NavLink>
+                <NavLink>
+                  <div className="border-t border-gray-200 mt-1 pt-1">
+                    {token ? <p onClick={handleLogout} className="px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                      Logout
+                    </p> : <div className="px-4 py-2 text-purple-600 font-bold hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                      Login
+                    </div>}
+                  </div>
                 </NavLink>
               </div>
             </div>
