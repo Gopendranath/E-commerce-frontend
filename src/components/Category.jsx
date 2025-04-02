@@ -14,6 +14,10 @@ const categories = [
 const CategorySection = () => {
   return (
     <section className="bg-gray-50 pb-12 md:pb-16 lg:pb-20 pt-6 md:pt-8">
+      <h1 className="text-center mb-6 md:mb-8">
+        <span className="text-3xl md:text-4xl font-bold text-gray-800">Shop by Category</span>
+      </h1>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- GRID CHANGE HERE --- */}
         {/* Starts as 2 columns, becomes 4 on large screens */}

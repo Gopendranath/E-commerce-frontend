@@ -18,6 +18,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Orders from "./pages/Orders.jsx";
 import Profile from "./pages/Profile.jsx";
+import Product from "./pages/Product.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/category/:id" element={<Categoryproduct />} />
           <Route path="/feature/:id" element={<Selectedfeature />} />
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
