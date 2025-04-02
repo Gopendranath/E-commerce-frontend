@@ -156,7 +156,7 @@ const Navbar = () => {
                             Your Orders
                           </Link>
                           <Link to="/wishlist" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
-                            Your Wishlist
+                            Your Wishlist {cartcount === 0 ? "" : `(${cartcount})`}
                           </Link>
                           <Link to="/profile" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Profile
@@ -195,11 +195,9 @@ const Navbar = () => {
 
           {/* Mobile Menu - Absolute Positioning */}
           {isSmallScreen && isMobileMenuOpen && (
-            // Added absolute, top-full, left-0, right-0, z-40, shadow-lg, rounded-b-lg
-            // Removed mt-4
             <div
               ref={mobileMenuRef} // Add ref to the menu container
-              className="absolute top-full left-0 right-0 md:hidden bg-gray-50 p-4 shadow-lg rounded-b-lg z-40 border-t border-gray-200" // Added border-t
+              className="absolute top-full left-0 right-0 md:hidden bg-gray-50 p-4 shadow-lg rounded-b-lg z-40 border-t border-gray-200"
             >
               <div className="flex flex-col space-y-1"> {/* Reduced space-y */}
                 <NavLink to="/" className={navLinkClass} onClick={closeMobileMenu} end>

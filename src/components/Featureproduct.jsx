@@ -66,7 +66,7 @@ const Featureproduct = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h2 className='text-3xl font-bold mb-8 text-center'>Our Featured Products</h2>
+      <h2 className='text-3xl font-semibold text-gray-800 mb-8 text-center'>Our Featured Products</h2>
 
       {itemrows.map((row, index) => (
         <ItemRow key={index} title={row.title} items={row.items} />

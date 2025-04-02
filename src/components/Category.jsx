@@ -13,9 +13,9 @@ const categories = [
 
 const CategorySection = () => {
   return (
-    <section className="bg-gray-50 pb-12 md:pb-16 lg:pb-20 pt-6 md:pt-8">
+    <section style={{ backgroundColor: 'rgba(249, 249, 249, 0.5)', backdropFilter: 'blur(10px)' }} className="pb-12 md:pb-16 lg:pb-20 pt-6 md:pt-8">
       <h1 className="text-center mb-6 md:mb-8">
-        <span className="text-3xl md:text-4xl font-bold text-gray-800">Shop by Category</span>
+        <span className="text-3xl md:text-4xl font-semibold text-gray-800">Shop by Category</span>
       </h1>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,7 +26,7 @@ const CategorySection = () => {
             <Link
               key={category.name}
               to={category.path}
-              className="group flex flex-col items-center space-y-2 text-center p-5 border border-transparent rounded-lg hover:shadow-sm hover:border-gray-200 hover:bg-white transition-all duration-200 ease-in-out"
+              className="group flex flex-col items-center space-y-2 text-center p-5 border border-transparent rounded-lg hover:shadow-sm hover:border-gray-200 hover:backdrop-blur-md hover:bg-white/30 transition-all duration-200 ease-in-out"
               aria-label={`Shop ${category.name}`}
             >
               {/* Icon Area */}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart, AiFillStar } from 'react-icons/ai';
 import { BsCart3 } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ item }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -10,11 +11,13 @@ const ProductCard = ({ item }) => {
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
         {/* Product Image */}
         <div className="relative">
-          <img
-            src={item.image}
-            alt={(item.title).substring(0, 15)}
-            className="w-full h-40 sm:h-48 md:h-64 object-cover object-center"
-          />
+          <Link to={`/product/${item.id}`}>
+            <img
+              src={item.image}
+              alt={(item.title).substring(0, 15)}
+              className="w-full h-40 sm:h-48 md:h-64 object-cover object-center hover:scale-105 transition-transform duration-300"
+            />
+          </Link>
           <button
             onClick={() => setIsWishlisted(!isWishlisted)}
             className="absolute top-2 right-2 p-1.5 sm:p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors duration-200 cursor-pointer"
@@ -38,10 +41,11 @@ const ProductCard = ({ item }) => {
               <span className="ml-1 text-xs sm:text-sm text-gray-600">{item.rating.rate} ({item.rating.count})</span>
             </div>
           </div>
-
-          <h3 className="text-sm sm:text-base md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
-            {(item.title).substring(0, 25) + (item.title.length > 15 ? '...' : '')}
-          </h3>
+          <Link to={`/product/${item.id}`}>
+            <h3 className="text-sm sm:text-base md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+              {(item.title).substring(0, 25) + (item.title.length > 15 ? '...' : '')}
+            </h3>
+          </Link>
 
           <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4 line-clamp-2">
             {(item.description).slice(0, 40) + (item.description.length > 40 ? '...' : '')}
@@ -55,7 +59,7 @@ const ProductCard = ({ item }) => {
             <span className="text-xs sm:text-sm font-medium text-green-600 hidden sm:block">In Stock</span>
           </div>
 
-          <button className="w-full bg-blue-600 text-white py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium flex items-center justify-center gap-1 sm:gap-2 hover:bg-blue-700 transition-colors duration-200">
+          <button className="w-full bg-gradient-to-br from-violet-400 to-violet-600 text-white py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium flex items-center justify-center gap-1 sm:gap-2 hover:bg-violet-700 transition-colors duration-200 cursor-pointer ">
             <BsCart3 className="w-4 h-4 sm:w-5 sm:h-5" />
             Add to Cart
           </button>
