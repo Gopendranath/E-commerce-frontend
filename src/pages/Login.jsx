@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/authSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiLoader } from "react-icons/bi";
+import Icon from "../assets/ULtrastore.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("eve.holt@reqres.in");
@@ -17,8 +18,8 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({email, password})).then((result) => {
-      if(result.meta.requestStatus === "fulfilled") {
+    dispatch(loginUser({ email, password })).then((result) => {
+      if (result.meta.requestStatus === "fulfilled") {
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -31,19 +32,18 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center py-12 ">
-      <div className="w-sm sm:max-w-md md:max-w-lg px-6 py-8 mt-20 relative border-x-2 border-gray-300">
-        
-        <div className="text-center -mt-5">
-          <h1 className="text-gray-300 font-bold rounded-md text-5xl">
-            ULTRASTORE
-          </h1>
-        </div>
-  
+    <div className="flex items-center justify-center bg-gradient-to-tr from-white via-purple-100 to-purple-200 px-4 min-h-screen">
+      <div className="w-full sm:max-w-md md:max-w-lg px-6 py-8 mt-20 relative border-x-4 border-purple-300 mb-45">
+          <img
+            src={Icon}
+            alt="Logo"
+            className="mx-auto pl-3 w-auto -mt-5"
+          />
+
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Login</h2>
         </div>
-        
+
         <form className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
@@ -90,7 +90,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-  
+
           <div>
             <button
               onClick={handleLogin}
@@ -101,13 +101,13 @@ const Login = () => {
               {status === "loading" ? <BiLoader className="animate-spin mr-2 w-5 h-5" /> : "Login"}
             </button>
           </div>
-  
+
           {error && (
             <div className="p-3 mt-4 text-sm text-red-700 bg-red-100 rounded-md">
               {error}
             </div>
           )}
-  
+
           {token && (
             <div className="p-3 mt-4 text-sm text-green-700 bg-green-100 rounded-md">
               Logged in successfully

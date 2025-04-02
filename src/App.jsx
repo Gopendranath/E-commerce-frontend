@@ -24,26 +24,36 @@ const App = () => {
   const isLoginPage = location.pathname === "/login";
 
   return (
-    <div className="bg-purple-100 min-h-screen">
+    // Main container: Full height, flex column layout
+    <div className="bg-purple-100 min-h-screen flex flex-col">
+
+      {/* Conditional Navbar */}
       {!isLoginPage && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-        <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-        <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/category/:id" element={<Categoryproduct />} />
-        <Route path="/feature/:id" element={<Selectedfeature />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Notfound />} />
-      </Routes>
+      <main className="flex-grow"> {/* <--- KEY CHANGE HERE */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/category/:id" element={<Categoryproduct />} />
+          <Route path="/feature/:id" element={<Selectedfeature />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Notfound />} />
+        </Routes>
+      </main>
+
+      {/* Toaster for notifications - position is usually absolute/fixed, so placement here is fine */}
       <Toaster />
+
+      {/* Conditional Footer */}
       {!isLoginPage && <Footer />}
+
     </div>
   )
 }
 
-export default App
+export default App;

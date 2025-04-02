@@ -12,36 +12,51 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [profilemenu, setProfilemenu] = useState(false);
-  const [cartcount, setCartcount] = useState(2);
-  const [wishlistcount, setWishlistcount] = useState(2);
+  const [cartcount, setCartcount] = useState(3); // Example count
+  const [wishlistcount, setWishlistcount] = useState(2); // Example count
   const profileMenuRef = useRef(null);
+  const mobileMenuRef = useRef(null); // Ref for mobile menu
+  const mobileMenuButtonRef = useRef(null); // Ref for mobile menu button
 
-  // console.log(cartcount)
 
   const { token } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
+    setIsMobileMenuOpen(false); // Close menu on logout
+    setProfilemenu(false); // Close profile menu on logout
   };
 
-
-  // Check screen size on mount and when window resizes
+  // Check screen size
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
+      const smallScreen = window.innerWidth < 768;
+      setIsSmallScreen(smallScreen);
+      if (!smallScreen) {
+        setIsMobileMenuOpen(false); // Close mobile menu if screen becomes large
+      }
     };
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Close profile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-        setProfilemenu(false);
+         const profileIcon = document.querySelector('.profile-icon-class');
+         if (profileIcon && !profileIcon.contains(event.target)) {
+             setProfilemenu(false);
+         }
+      }
+
+      if (isMobileMenuOpen && 
+          mobileMenuRef.current && 
+          !mobileMenuRef.current.contains(event.target) && 
+          mobileMenuButtonRef.current && 
+          !mobileMenuButtonRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
       }
     };
 
@@ -49,13 +64,16 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [profileMenuRef]);
+  }, [profileMenuRef, mobileMenuRef, mobileMenuButtonRef, isMobileMenuOpen]);
 
-  // Close mobile menu when clicking outside
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const closeMobileMenu = () => {
+      setIsMobileMenuOpen(false);
+  }
 
   const toggleProfileMenu = () => {
     setProfilemenu(!profilemenu);
@@ -64,73 +82,87 @@ const Navbar = () => {
   // NavLink active style function
   const navLinkClass = ({ isActive }) =>
     isActive
+      ? "block px-4 py-2 cursor-pointer text-purple-600 font-semibold transition-colors duration-300 bg-purple-50 rounded"
+      : "block px-4 py-2 cursor-pointer hover:text-purple-600 transition-colors duration-300 font-medium hover:bg-purple-50 rounded";
+
+  // Desktop NavLink style function (original)
+  const desktopNavLinkClass = ({ isActive }) =>
+    isActive
       ? "cursor-pointer text-purple-600 font-semibold transition-colors duration-300"
       : "cursor-pointer hover:text-purple-600 transition-colors duration-300 font-medium";
 
   return (
-    <div className="shadow-md w-full">
-      <nav className="bg-white py-4 px-6">
+    // Add relative positioning to the main wrapper
+    <div className="shadow-md w-full sticky top-0 z-50 bg-white">
+      {/* Add relative positioning here */}
+      <nav className="relative bg-white py-4 px-6">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="w-32">
+            <Link to="/" className="w-32 flex-shrink-0">
               <img src={Icon} alt="UltraStore Logo" className="mx-auto" />
             </Link>
 
             {/* Desktop Navigation Links */}
             <div className={`hidden md:flex space-x-8`}>
-              <NavLink to="/" className={navLinkClass} end>
-                <p>Home</p>
+              <NavLink to="/" className={desktopNavLinkClass} end>
+                Home
               </NavLink>
-              <NavLink to="/category/all" className={navLinkClass}>
+              <NavLink to="/category/all" className={desktopNavLinkClass}>
                 Collections
               </NavLink>
-              <NavLink to="/about" className={navLinkClass}>
+              <NavLink to="/about" className={desktopNavLinkClass}>
                 About
               </NavLink>
-              <NavLink to="/contact" className={navLinkClass}>
+              <NavLink to="/contact" className={desktopNavLinkClass}>
                 Contact
               </NavLink>
             </div>
 
             {/* Icons */}
             <div className="flex items-center">
-              <div className={`flex ${isSmallScreen ? 'space-x-0': 'space-x-6'} items-center`}>
+              <div className={`flex ${isSmallScreen ? 'space-x-4': 'space-x-6'} items-center`}>
                 <div className="cursor-pointer hover:text-purple-500 transition-colors duration-300">
                   <LuSearch size={20} />
                 </div>
-                <NavLink to="/cart" className={({ isActive }) =>
-                  isActive
-                    ? `cursor-pointer text-purple-600 transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''}` // Added 'relative' here
-                    : `cursor-pointer hover:text-purple-500 transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''}` // Added 'relative' here
-                }>
+
+                 <NavLink to="/cart" className={({ isActive }) =>
+                   isActive
+                     ? `cursor-pointer text-purple-600 transition-colors duration-300 relative`
+                     : `cursor-pointer hover:text-purple-500 transition-colors duration-300 relative`
+                 }>
                   <FaCartArrowDown size={20} />
-                  <p className={`absolute inset-3 right-[-5px] top-[-5px] w-4 text-center leading-4 bg-purple-600 text-white aspect-square rounded-full text-[8px] ${cartcount === 0 ? "hidden" : "block"}`}>{cartcount}</p>
+                  <p className={`absolute inset-3 right-[-5px] top-[-5px] w-4 h-4 flex items-center justify-center bg-purple-600 text-white rounded-full text-[8px] ${cartcount === 0 ? "hidden" : "flex"}`}> {/* Hide badge on small screens */}
+                      {cartcount}
+                  </p>
                 </NavLink>
+
+                {/* Profile/Login Icon or Button */}
                 {token ? (
-                  <div className={`cursor-pointer transition-colors duration-300 relative ${isSmallScreen ? 'hidden': ''} `} ref={profileMenuRef}>
+                  <div className={`cursor-pointer transition-colors duration-300 relative hidden md:block`} ref={profileMenuRef}>
                     <CgProfile
                       size={20}
-                      className='hover:text-purple-500'
+                      className='hover:text-purple-500 profile-icon-class'
                       onClick={toggleProfileMenu}
                     />
                     {profilemenu && (
-                      <div className="absolute top-8 right-0 bg-white border border-gray-300 rounded-lg shadow-md p-2 z-50">
-                        <div className="flex flex-col w-48 py-2 bg-white text-gray-700 rounded">
-                          <div className="border-b border-gray-200 pb-2 mb-1">
-                            <p className="px-4 py-2 font-medium text-purple-900">John Doe</p>
+                       // Use same z-index as mobile menu or higher if needed
+                      <div className="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-40 w-48">
+                        <div className="flex flex-col bg-white text-gray-700 rounded">
+                          <div className="border-b border-gray-200 pb-2 mb-1 px-4 py-2">
+                            <p className="font-medium text-purple-900 truncate">John Doe</p> {/* Added truncate */}
                           </div>
-                          <Link to="/orders" onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
+                          <Link to="/orders" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Orders
                           </Link>
-                          <Link to="/wishlist" onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
+                          <Link to="/wishlist" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Wishlist
                           </Link>
-                          <Link to="/profile" onClick={toggleProfileMenu} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
+                          <Link to="/profile" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Profile
                           </Link>
                           <div className="border-t border-gray-200 mt-1 pt-1">
-                            <p onClick={handleLogout} className="px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                            <p onClick={handleLogout} className="px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer font-medium">
                               Logout
                             </p>
                           </div>
@@ -139,7 +171,8 @@ const Navbar = () => {
                     )}
                   </div>
                 ) : (
-                  <Link to="/login">
+                   // Login Button (hidden on small screens, shown on md+)
+                  <Link to="/login" className={`hidden md:block`}>
                     <div className="border-2 px-4 py-1.5 border-purple-500 bg-purple-100 text-sm font-semibold text-purple-800 rounded-full cursor-pointer hover:bg-purple-200 transition-colors duration-300">
                       Login
                     </div>
@@ -147,10 +180,11 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Conditionally rendered */}
               {isSmallScreen && (
                 <div
-                  className="ml-6 cursor-pointer md:hidden"
+                  ref={mobileMenuButtonRef} // Add ref to the button
+                  className="ml-4 cursor-pointer md:hidden" // Ensure margin only when needed
                   onClick={toggleMobileMenu}
                 >
                   <TbMenu2 size={24} />
@@ -159,43 +193,61 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu - Absolute Positioning */}
           {isSmallScreen && isMobileMenuOpen && (
-            <div className="md:hidden mt-4 bg-gray-50 p-4 rounded-lg">
-              <div className="flex flex-col space-y-3">
-                <NavLink to="/" className={navLinkClass} onClick={toggleMobileMenu} end>
+            // Added absolute, top-full, left-0, right-0, z-40, shadow-lg, rounded-b-lg
+            // Removed mt-4
+            <div
+              ref={mobileMenuRef} // Add ref to the menu container
+              className="absolute top-full left-0 right-0 md:hidden bg-gray-50 p-4 shadow-lg rounded-b-lg z-40 border-t border-gray-200" // Added border-t
+            >
+              <div className="flex flex-col space-y-1"> {/* Reduced space-y */}
+                <NavLink to="/" className={navLinkClass} onClick={closeMobileMenu} end>
                   Home
                 </NavLink>
-                <NavLink to="/category/all" className={navLinkClass} onClick={toggleMobileMenu}>
+                <NavLink to="/category/all" className={navLinkClass} onClick={closeMobileMenu}>
                   Collections
                 </NavLink>
-                <NavLink to="/about" className={navLinkClass} onClick={toggleMobileMenu}>
+                <NavLink to="/about" className={navLinkClass} onClick={closeMobileMenu}>
                   About
                 </NavLink>
-                <NavLink to="/contact" className={navLinkClass} onClick={toggleMobileMenu}>
+                <NavLink to="/contact" className={navLinkClass} onClick={closeMobileMenu}>
                   Contact
                 </NavLink>
-                <NavLink to="/wishlist" className={navLinkClass} onClick={toggleMobileMenu}>
-                  Wishlist ({wishlistcount > 0 ? wishlistcount : 0})
-                </NavLink>
-                <NavLink to="/cart" className={navLinkClass} onClick={toggleMobileMenu}>
-                  View Cart ({cartcount > 0 ? cartcount : 0})
-                </NavLink>
-                <NavLink to="/orders" className={navLinkClass} onClick={toggleMobileMenu}>
-                  Your Orders
-                </NavLink>
-                <NavLink to="/profile" className={navLinkClass} onClick={toggleMobileMenu}>
-                  Your Profile
-                </NavLink>
-                <NavLink>
-                  <div className="border-t border-gray-200 mt-1 pt-1">
-                    {token ? <p onClick={handleLogout} className="px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                {/* Separator */}
+                {token && <div className="border-t border-gray-200 my-2"></div>}
+
+                {/* Links visible only when logged in (in mobile menu) */}
+                 {token && (
+                   <>
+                    <NavLink to="/wishlist" className={navLinkClass} onClick={closeMobileMenu}>
+                       Wishlist {wishlistcount > 0 && `(${wishlistcount})`}
+                    </NavLink>
+                    {/* Cart link removed from here as icon is always visible */}
+                    {/* <NavLink to="/cart" className={navLinkClass} onClick={closeMobileMenu}>
+                      View Cart {cartcount > 0 && `(${cartcount})`}
+                    </NavLink> */}
+                    <NavLink to="/orders" className={navLinkClass} onClick={closeMobileMenu}>
+                      Your Orders
+                    </NavLink>
+                    <NavLink to="/profile" className={navLinkClass} onClick={closeMobileMenu}>
+                      Your Profile
+                    </NavLink>
+                   </>
+                 )}
+
+                {/* Login/Logout Button */}
+                <div className="border-t border-gray-200 mt-2 pt-2">
+                  {token ? (
+                    <p onClick={handleLogout} className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer font-medium rounded">
                       Logout
-                    </p> : <div className="px-4 py-2 text-purple-600 font-bold hover:bg-red-50 transition-colors duration-200 cursor-pointer">
+                    </p>
+                   ) : (
+                    <NavLink to="/login" onClick={closeMobileMenu} className="block w-full text-left px-4 py-2 text-purple-600 font-bold hover:bg-purple-50 transition-colors duration-200 cursor-pointer rounded">
                       Login
-                    </div>}
-                  </div>
-                </NavLink>
+                    </NavLink>
+                   )}
+                </div>
               </div>
             </div>
           )}
