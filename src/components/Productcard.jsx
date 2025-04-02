@@ -12,7 +12,7 @@ const ProductCard = ({ item }) => {
         <div className="relative">
           <img
             src={item.image}
-            alt={(item.title).substring(0, 10)}
+            alt={(item.title).substring(0, 15)}
             className="w-full h-40 sm:h-48 md:h-64 object-cover object-center"
           />
           <button
@@ -40,7 +40,7 @@ const ProductCard = ({ item }) => {
           </div>
 
           <h3 className="text-sm sm:text-base md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
-            {(item.title).substring(0, 15) + (item.title.length > 15 ? '...' : '')}
+            {(item.title).substring(0, 25) + (item.title.length > 15 ? '...' : '')}
           </h3>
 
           <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4 line-clamp-2">

@@ -26,8 +26,7 @@ const App = () => {
 
   return (
     // Main container: Full height, flex column layout
-    <div className="bg-purple-100 min-h-screen flex flex-col">
-
+    <div className="bg-gradient-to-tr from-purple-200 to-orange-100 min-h-screen flex flex-col">
       {/* Conditional Navbar */}
       {!isLoginPage && <Navbar />}
       <main className="flex-grow"> {/* <--- KEY CHANGE HERE */}
@@ -47,7 +46,6 @@ const App = () => {
           <Route path="*" element={<Notfound />} />
         </Routes>
       </main>
-
       {/* Toaster for notifications - position is usually absolute/fixed, so placement here is fine */}
       <Toaster />
 
