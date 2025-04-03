@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// function to load cart data from localStorage
+// Function to load cart data from localStorage
 const loadCartFromLocalStorage = () => {
   const cartData = localStorage.getItem("cart");
   return cartData ? JSON.parse(cartData) : [];
@@ -8,20 +8,17 @@ const loadCartFromLocalStorage = () => {
 
 const cartSlice = createSlice({
   name: "cart",
-  // Initialize state with cart data from localStorage
   initialState: loadCartFromLocalStorage(),
   reducers: {
-    // addToCart reducer to add items to cart and update localStorage
     addToCart: (state, action) => {
       const item = state.find((product) => product.id === action.payload.id);
-      if(item) {
+      if (item) {
         item.quantity += 1;
       } else {
-        state.push({...action.payload, quantity: 1})
+        state.push({ ...action.payload, quantity: 1 });
       }
       localStorage.setItem("cart", JSON.stringify(state));
     },
-
     addMultipleToCart: (state, action) => {
       const items = action.payload;
       items.forEach((item) => {
@@ -34,37 +31,29 @@ const cartSlice = createSlice({
       });
       localStorage.setItem("cart", JSON.stringify(state));
     },
-    
-    // removeFromCart reducer to remove items from cart and update localStorage
     removeFromCart: (state, action) => {
       const newState = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(newState));
       return newState;
     },
-    
-    // increaseQuantity reducer to increase item quantity and update localStorage
     increaseQuantity: (state, action) => {
       const item = state.find((product) => product.id === action.payload);
-      if(item) item.quantity += 1;
+      if (item) item.quantity += 1;
       localStorage.setItem("cart", JSON.stringify(state));
     },
-    
-    // decreaseQuantity reducer to decrease item quantity and update localStorage
     decreaseQuantity: (state, action) => {
       const item = state.find((product) => product.id === action.payload);
-      if(item && item.quantity > 1) {
+      if (item && item.quantity > 1) {
         item.quantity -= 1;
       }
       localStorage.setItem("cart", JSON.stringify(state));
     },
-    
-    // clearCart reducer to remove all items from cart and clear localStorage
-    clearCart: (state) => {
+    clearCart: () => {
       localStorage.removeItem("cart");
+      return []; // Reset state to empty array
     },
   },
 });
 
-export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, addMultipleToCart } = cartSlice.actions;
 export default cartSlice.reducer;
-

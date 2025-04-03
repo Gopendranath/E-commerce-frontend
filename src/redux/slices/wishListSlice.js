@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// function to load wishList data from localStorage
-const wishListfromLocalStorage = () => {
+// Function to load wishList data from localStorage
+const wishListFromLocalStorage = () => {
     const wishList = localStorage.getItem("wishList");
     return wishList ? JSON.parse(wishList) : [];
 };
@@ -9,27 +9,30 @@ const wishListfromLocalStorage = () => {
 // wishList slice
 const wishListSlice = createSlice({
     name: "wishList",
-    initialState: wishListfromLocalStorage(),
+    initialState: wishListFromLocalStorage(),
     reducers: {
-        addTowishList: (state, action) => {
-            const item = state.find((product) => product.id === action.payload.id);
-            if (item) {
-                item.quantity += 1;
+        toggleWishList: (state, action) => {
+            const itemIndex = state.findIndex((product) => product.id === action.payload.id);
+            if (itemIndex !== -1) {
+                state.splice(itemIndex, 1);
             } else {
-                state.push({ ...action.payload, quantity: 1 })
+                state.push({ ...action.payload });
             }
             localStorage.setItem("wishList", JSON.stringify(state));
         },
-        removeFromWishList: (state, action) => {
-            const newState = state.filter((item) => item.id !== action.payload);
-            localStorage.setItem("wishList", JSON.stringify(newState));
-            return newState;
-        },
-        clearWishList: (state) => {
+        clearWishList: () => {
             localStorage.removeItem("wishList");
-        }
+            return [];
+        },
+        removeOne: (state, action) => {
+            const itemIndex = state.findIndex((product) => product.id === action.payload.id);
+            if (itemIndex !== -1) {
+                state.splice(itemIndex, 1);
+            }
+            localStorage.setItem("wishList", JSON.stringify(state));
+        },
     }
-})
+});
 
-export const { addTowishList, removeFromWishList, clearWishList } = wishListSlice.actions;
+export const { toggleWishList, clearWishList, removeOne } = wishListSlice.actions;
 export default wishListSlice.reducer;

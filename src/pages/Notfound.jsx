@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    // Use <main> or <div>.
-    // - flex: Use flexbox to center the content *within* this container.
-    // - items-center, justify-center: Vertically and horizontally center the inner div.
-    // - h-full: Make this container take the full height *given to it* by its parent (the flex-grow container in AppLayout).
-    // - Added background here for visual separation, can be removed if parent has bg.
     <div className="flex items-center justify-center h-full px-4 py-16 sm:py-24 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       {/* Inner container for content alignment and max-width */}
       <div className="max-w-lg w-full text-center">
@@ -53,7 +48,7 @@ const NotFound = () => {
           </Link>
 
           <Link
-            to="/category/all" // Adjust link as needed
+            to="/category/all"
             className="px-6 py-3 border border-purple-500 text-purple-600 text-base font-medium rounded-lg
                        hover:bg-purple-50 hover:text-purple-700 hover:border-purple-600
                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
