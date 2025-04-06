@@ -1,9 +1,7 @@
-// src/pages/OrdersPage.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // For linking to order details
 import clsx from 'clsx'; // Optional: for cleaner conditional classes (npm install clsx)
 
-// --- Mock Data Fetching (Replace with your actual API call) ---
 const mockOrders = [
   {
     id: 'ORD78A2BC',
@@ -11,8 +9,18 @@ const mockOrders = [
     total: 125.80,
     status: 'Delivered',
     items: [
-      { id: 1, name: 'Premium Wireless Headphones', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item1' },
-      { id: 2, name: 'Ergonomic Mousepad', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item2' },
+      {
+        id: 1,
+        name: 'Premium Wireless Headphones',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1641048930621-ab5d225ae5b0?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
+      {
+        id: 2,
+        name: 'Ergonomic Mousepad',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1631098983935-5363b8e50edb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
     ],
   },
   {
@@ -21,39 +29,70 @@ const mockOrders = [
     total: 44.60,
     status: 'Shipped',
     items: [
-      { id: 3, name: 'Casual Slim Fit T-Shirt (Blue)', qty: 2, image: 'https://via.placeholder.com/64x64.png?text=Item3' },
+      {
+        id: 3,
+        name: 'Casual Slim Fit T-Shirt (Blue)',
+        qty: 2,
+        image: 'https://images.unsplash.com/photo-1636452148234-1d46c4b85b8c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
     ],
   },
-   {
+  {
     id: 'ORD91FGH3',
     date: '2024-04-02',
     total: 695.00,
     status: 'Processing',
     items: [
-      { id: 4, name: 'Silver Dragon Bracelet', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item4' },
+      {
+        id: 4,
+        name: 'Silver Dragon Bracelet',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1595370376122-c98ddd48e4cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
     ],
   },
-   {
+  {
     id: 'ORD34IJK0',
     date: '2024-02-10',
     total: 89.99,
     status: 'Delivered',
     items: [
-      { id: 5, name: 'Smartwatch Charger Stand', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item5' },
-      { id: 6, name: 'Screen Protector Pack (3)', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item6' },
-       { id: 7, name: 'Extra USB-C Cable', qty: 2, image: 'https://via.placeholder.com/64x64.png?text=Item7' },
+      {
+        id: 5,
+        name: 'Smartwatch Charger Stand',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1669255344189-fc6a34d42f3a?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
+      {
+        id: 6,
+        name: 'Screen Protector Pack (3)',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=64&h=64',
+      },
+      {
+        id: 7,
+        name: 'Extra USB-C Cable',
+        qty: 2,
+        image: 'https://plus.unsplash.com/premium_photo-1669262667978-5d4aafe29dd5?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
     ],
   },
-   {
+  {
     id: 'ORD11LMN5',
     date: '2024-01-25',
     total: 35.00,
     status: 'Cancelled',
     items: [
-      { id: 8, name: 'Funny Coffee Mug', qty: 1, image: 'https://via.placeholder.com/64x64.png?text=Item8' },
+      {
+        id: 8,
+        name: 'Funny Coffee Mug',
+        qty: 1,
+        image: 'https://images.unsplash.com/photo-1696431621200-9068cdb0a1bd?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
     ],
   },
 ];
+
 
 const fetchOrders = () => {
   return new Promise((resolve) => {
@@ -65,7 +104,6 @@ const fetchOrders = () => {
 // --- End Mock Data ---
 
 
-// --- Helper: Order Card Component ---
 const OrderCard = ({ order }) => {
   const maxVisibleItems = 3; // Show max 3 item previews
 
@@ -113,8 +151,6 @@ const OrderCard = ({ order }) => {
              )}>
                  {order.status}
              </span>
-              {/* Add expected delivery date if status is Shipped/Processing */}
-              {/* { (order.status === 'Shipped' || order.status === 'Processing') && <p className="text-sm text-gray-600 mt-1">Expected delivery: ... </p> } */}
          </div>
 
          {/* Items List */}
@@ -130,22 +166,14 @@ const OrderCard = ({ order }) => {
                          <p className="font-medium text-gray-800 line-clamp-1">{item.name}</p>
                          {item.qty > 1 && <p className="text-xs text-gray-500">Quantity: {item.qty}</p>}
                      </div>
-                     {/* Optional: Link to product or add to cart again */}
-                     {/* <button className="text-indigo-600 text-xs">Buy Again</button> */}
                  </div>
              ))}
              {order.items.length > maxVisibleItems && (
-                <p className="text-xs text-gray-500 mt-2 pl-[60px]"> {/* Align with item text */}
+                <p className="text-xs text-gray-500 mt-2 pl-[60px]">
                     + {order.items.length - maxVisibleItems} more item(s)
                 </p>
              )}
          </div>
-
-        {/* Optional: Actions like Track Package, Return Items */}
-        {/* <div className="mt-4 pt-4 border-t border-gray-100 space-x-3">
-            <button className="...">Track Package</button>
-            <button className="...">Return Items</button>
-        </div> */}
       </div>
     </div>
   );
@@ -172,15 +200,13 @@ const OrdersPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
-  // --- Render Logic ---
 
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
         <p className="text-gray-500">Loading your orders...</p>
-        {/* Optional: Add a spinner here */}
       </div>
     );
   }
@@ -199,7 +225,7 @@ const OrdersPage = () => {
         <h1 className="text-3xl font-semibold text-gray-800 mb-4">Your Orders</h1>
         <p className="text-gray-600 mb-6">You haven't placed any orders yet.</p>
         <Link
-          to="/products" // Link to your main products page
+          to="/products"
           className="inline-block bg-indigo-600 text-white font-medium py-2 px-6 rounded-md hover:bg-indigo-700 transition duration-200"
         >
           Start Shopping
@@ -212,16 +238,11 @@ const OrdersPage = () => {
     <div className=" min-h-screen">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Orders</h1>
-
-        {/* Orders List */}
         <div className="space-y-6">
           {orders.map(order => (
             <OrderCard key={order.id} order={order} />
           ))}
         </div>
-
-        {/* Optional: Pagination if there are many orders */}
-        {/* <div className="mt-8 text-center"> ... Pagination controls ... </div> */}
       </div>
     </div>
   );

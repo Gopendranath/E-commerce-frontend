@@ -7,25 +7,39 @@ import { CgProfile } from "react-icons/cg";
 import { TbMenu2 } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import SearchModal from './Seachmodal'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [profilemenu, setProfilemenu] = useState(false);
-  const [cartcount, setCartcount] = useState(3); // Example count
-  const [wishlistcount, setWishlistcount] = useState(2); // Example count
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const profileMenuRef = useRef(null);
-  const mobileMenuRef = useRef(null); // Ref for mobile menu
-  const mobileMenuButtonRef = useRef(null); // Ref for mobile menu button
-
+  const mobileMenuRef = useRef(null);
+  const mobileMenuButtonRef = useRef(null);
 
   const { token } = useSelector((state) => state.auth);
+
+  const totalCartCount = useSelector((state) =>
+    state.cart.reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  const totalWishListCount = useSelector((state) => state.wishlist.length);
+
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
-    setIsMobileMenuOpen(false); // Close menu on logout
-    setProfilemenu(false); // Close profile menu on logout
+    setIsMobileMenuOpen(false);
+    setProfilemenu(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   // Check screen size
@@ -45,17 +59,17 @@ const Navbar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-         const profileIcon = document.querySelector('.profile-icon-class');
-         if (profileIcon && !profileIcon.contains(event.target)) {
-             setProfilemenu(false);
-         }
+        const profileIcon = document.querySelector('.profile-icon-class');
+        if (profileIcon && !profileIcon.contains(event.target)) {
+          setProfilemenu(false);
+        }
       }
 
-      if (isMobileMenuOpen && 
-          mobileMenuRef.current && 
-          !mobileMenuRef.current.contains(event.target) && 
-          mobileMenuButtonRef.current && 
-          !mobileMenuButtonRef.current.contains(event.target)) {
+      if (isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target) &&
+        mobileMenuButtonRef.current &&
+        !mobileMenuButtonRef.current.contains(event.target)) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -66,13 +80,12 @@ const Navbar = () => {
     };
   }, [profileMenuRef, mobileMenuRef, mobileMenuButtonRef, isMobileMenuOpen]);
 
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const closeMobileMenu = () => {
-      setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
   }
 
   const toggleProfileMenu = () => {
@@ -121,19 +134,26 @@ const Navbar = () => {
 
             {/* Icons */}
             <div className="flex items-center">
-              <div className={`flex ${isSmallScreen ? 'space-x-4': 'space-x-6'} items-center`}>
-                <div className="cursor-pointer hover:text-purple-500 transition-colors duration-300">
-                  <LuSearch size={20} />
-                </div>
+              <div className={`flex ${isSmallScreen ? 'space-x-4' : 'space-x-6'} items-center`}>
 
-                 <NavLink to="/cart" className={({ isActive }) =>
-                   isActive
-                     ? `cursor-pointer text-purple-600 transition-colors duration-300 relative`
-                     : `cursor-pointer hover:text-purple-500 transition-colors duration-300 relative`
-                 }>
+                <button
+                  onClick={handleOpenModal}
+                  className="text-gray-600 hover:text-purple-600 transition-colors duration-300"
+                  aria-label="Open search modal"
+                >
+                  <LuSearch className="w-6 h-6" />
+                </button>
+
+                <SearchModal isOpen={isModalOpen} onClose={handleCloseModal}/>
+
+                <NavLink to="/cart" className={({ isActive }) =>
+                  isActive
+                    ? `cursor-pointer text-purple-600 transition-colors duration-300 relative`
+                    : `cursor-pointer hover:text-purple-500 transition-colors duration-300 relative`
+                }>
                   <FaCartArrowDown size={20} />
-                  <p className={`absolute inset-3 right-[-5px] top-[-5px] w-4 h-4 flex items-center justify-center bg-purple-600 text-white rounded-full text-[8px] ${cartcount === 0 ? "hidden" : "flex"}`}> {/* Hide badge on small screens */}
-                      {cartcount}
+                  <p className={`absolute inset-3 right-[-5px] top-[-5px] w-4 h-4 flex items-center justify-center bg-purple-600 text-white rounded-full text-[8px] ${totalCartCount === 0 ? "hidden" : "flex"}`}> {/* Hide badge on small screens */}
+                    {totalCartCount}
                   </p>
                 </NavLink>
 
@@ -146,7 +166,6 @@ const Navbar = () => {
                       onClick={toggleProfileMenu}
                     />
                     {profilemenu && (
-                       // Use same z-index as mobile menu or higher if needed
                       <div className="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-40 w-48">
                         <div className="flex flex-col bg-white text-gray-700 rounded">
                           <div className="border-b border-gray-200 pb-2 mb-1 px-4 py-2">
@@ -156,7 +175,7 @@ const Navbar = () => {
                             Your Orders
                           </Link>
                           <Link to="/wishlist" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
-                            Your Wishlist {cartcount === 0 ? "" : `(${cartcount})`}
+                            Your Wishlist {totalWishListCount === 0 ? "" : `(${totalWishListCount})`}
                           </Link>
                           <Link to="/profile" onClick={() => { toggleProfileMenu(); closeMobileMenu(); }} className="px-4 py-2 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 cursor-pointer">
                             Your Profile
@@ -171,7 +190,6 @@ const Navbar = () => {
                     )}
                   </div>
                 ) : (
-                   // Login Button (hidden on small screens, shown on md+)
                   <Link to="/login" className={`hidden md:block`}>
                     <div className="border-2 px-4 py-1.5 border-purple-500 bg-purple-100 text-sm font-semibold text-purple-800 rounded-full cursor-pointer hover:bg-purple-200 transition-colors duration-300">
                       Login
@@ -183,8 +201,8 @@ const Navbar = () => {
               {/* Mobile Menu Button - Conditionally rendered */}
               {isSmallScreen && (
                 <div
-                  ref={mobileMenuButtonRef} // Add ref to the button
-                  className="ml-4 cursor-pointer md:hidden" // Ensure margin only when needed
+                  ref={mobileMenuButtonRef}
+                  className="ml-4 cursor-pointer md:hidden"
                   onClick={toggleMobileMenu}
                 >
                   <TbMenu2 size={24} />
@@ -192,11 +210,9 @@ const Navbar = () => {
               )}
             </div>
           </div>
-
-          {/* Mobile Menu - Absolute Positioning */}
           {isSmallScreen && isMobileMenuOpen && (
             <div
-              ref={mobileMenuRef} // Add ref to the menu container
+              ref={mobileMenuRef}
               className="absolute top-full left-0 right-0 md:hidden bg-gray-50 p-4 shadow-lg rounded-b-lg z-40 border-t border-gray-200"
             >
               <div className="flex flex-col space-y-1"> {/* Reduced space-y */}
@@ -216,23 +232,19 @@ const Navbar = () => {
                 {token && <div className="border-t border-gray-200 my-2"></div>}
 
                 {/* Links visible only when logged in (in mobile menu) */}
-                 {token && (
-                   <>
+                {token && (
+                  <>
                     <NavLink to="/wishlist" className={navLinkClass} onClick={closeMobileMenu}>
-                       Wishlist {wishlistcount > 0 && `(${wishlistcount})`}
+                      Wishlist {totalWishListCount > 0 && `(${totalWishListCount})`}
                     </NavLink>
-                    {/* Cart link removed from here as icon is always visible */}
-                    {/* <NavLink to="/cart" className={navLinkClass} onClick={closeMobileMenu}>
-                      View Cart {cartcount > 0 && `(${cartcount})`}
-                    </NavLink> */}
                     <NavLink to="/orders" className={navLinkClass} onClick={closeMobileMenu}>
                       Your Orders
                     </NavLink>
                     <NavLink to="/profile" className={navLinkClass} onClick={closeMobileMenu}>
                       Your Profile
                     </NavLink>
-                   </>
-                 )}
+                  </>
+                )}
 
                 {/* Login/Logout Button */}
                 <div className="border-t border-gray-200 mt-2 pt-2">
@@ -240,11 +252,11 @@ const Navbar = () => {
                     <p onClick={handleLogout} className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200 cursor-pointer font-medium rounded">
                       Logout
                     </p>
-                   ) : (
+                  ) : (
                     <NavLink to="/login" onClick={closeMobileMenu} className="block w-full text-left px-4 py-2 text-purple-600 font-bold hover:bg-purple-50 transition-colors duration-200 cursor-pointer rounded">
                       Login
                     </NavLink>
-                   )}
+                  )}
                 </div>
               </div>
             </div>

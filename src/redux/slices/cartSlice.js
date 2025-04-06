@@ -50,7 +50,7 @@ const cartSlice = createSlice({
     },
     clearCart: () => {
       localStorage.removeItem("cart");
-      return []; // Reset state to empty array
+      return [];
     },
   },
 });

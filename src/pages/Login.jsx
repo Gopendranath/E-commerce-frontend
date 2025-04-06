@@ -32,13 +32,20 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-tr from-white via-purple-100 to-purple-200 px-4 min-h-screen">
-      <div className="w-full sm:max-w-md md:max-w-lg px-6 py-8 mt-20 relative border-x-4 border-purple-300 mb-45">
-          <img
-            src={Icon}
-            alt="Logo"
-            className="mx-auto pl-3 w-auto -mt-5"
-          />
+    <div className="flex items-center justify-center bg-gradient-to-tr from-orange-100 via-purple-300 to-purple-100 px-4 min-h-screen">
+      <div
+        className="w-full sm:max-w-md md:max-w-lg px-6 py-8 mt-20 relative border-4 border-purple-200 mb-45"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)'
+        }}
+      >
+        <img
+          src={Icon}
+          alt="Logo"
+          className="mx-auto pl-3 w-auto -mt-5"
+        />
 
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Login</h2>

@@ -19,17 +19,19 @@ import Contact from "./pages/Contact.jsx";
 import Orders from "./pages/Orders.jsx";
 import Profile from "./pages/Profile.jsx";
 import Product from "./pages/Product.jsx";
+import Confirm from "./pages/confirm.jsx";
+import SearchResultsPage from "./pages/Search.jsx";
 
 const App = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
 
   return (
-    // Main container: Full height, flex column layout
     <div className="bg-gradient-to-tr from-purple-200 to-orange-100 min-h-screen flex flex-col">
       {/* Conditional Navbar */}
       {!isLoginPage && <Navbar />}
-      <main className="flex-grow"> {/* <--- KEY CHANGE HERE */}
+      {/* <Navbar/> */}
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
@@ -37,7 +39,9 @@ const App = () => {
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/category/:id" element={<Categoryproduct />} />
+          <Route path="/order-confirmation" element={<ProtectedRoute><Confirm /></ProtectedRoute>} />
+          <Route path="/search" element={<SearchResultsPage/>} />
+          <Route path="/category/:collection" element={<Categoryproduct />} />
           <Route path="/feature/:id" element={<Selectedfeature />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/about" element={<About />} />

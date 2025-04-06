@@ -48,19 +48,12 @@ const AddressCard = ({ address }) => (
     <p className="text-sm text-gray-600">{address.line1}</p>
     {address.line2 && <p className="text-sm text-gray-600">{address.line2}</p>}
     <p className="text-sm text-gray-600">{address.city}, {address.state} {address.zip}</p>
-    {/* Optional: Edit/Delete Buttons */}
-    {/* <div className="mt-3 space-x-2">
-      <button className="text-indigo-600 hover:text-indigo-800 text-xs">Edit</button>
-      <button className="text-red-600 hover:text-red-800 text-xs">Delete</button>
-    </div> */}
   </div>
 );
 
 // --- Main Profile Component ---
-
 const ProfileSection = ({ user = placeholderUser, orders = placeholderOrders, addresses = placeholderAddresses }) => {
-  // NOTE: Pass actual user, orders, addresses as props or get from context/state
-  const [activeSection, setActiveSection] = useState('overview'); // 'overview', 'orders', 'addresses', 'settings'
+  const [activeSection, setActiveSection] = useState('overview');
   const dispatch = useDispatch();
 
   // Placeholder action handlers (replace with actual logic)
@@ -81,8 +74,6 @@ const ProfileSection = ({ user = placeholderUser, orders = placeholderOrders, ad
             ) : (
               <p className="text-gray-500">You haven't placed any orders yet.</p>
             )}
-            {/* Optional: Link to full order history page if needed */}
-            {/* <button className="mt-6 text-indigo-600 hover:text-indigo-800">View All Orders</button> */}
           </div>
         );
 

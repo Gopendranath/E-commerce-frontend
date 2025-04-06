@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <div className="flex items-center justify-center h-full px-4 py-16 sm:py-24 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
-      {/* Inner container for content alignment and max-width */}
+    <div className="flex items-center justify-center h-full px-4 py-16 sm:py-24">
       <div className="max-w-lg w-full text-center">
-        {/* ... (keep the rest of your enhanced NotFound content) ... */}
         <h1 className="text-8xl sm:text-9xl font-extrabold tracking-tight bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent drop-shadow-md">
           404
         </h1>
