@@ -55,7 +55,7 @@ const cartSlice = createSlice({
       const itemsToAdd = action.payload; // Expecting an array of items
       if (!Array.isArray(itemsToAdd) || itemsToAdd.length === 0) {
         console.warn("addMultipleToCart called with invalid payload:", itemsToAdd);
-        return; // Do nothing if payload is not a non-empty array
+        return;
       }
 
       let addedCount = 0;
@@ -101,10 +101,6 @@ const cartSlice = createSlice({
         // Explicitly return the new state array
         return newState;
       }
-      // If item wasn't found, return the existing state (or do nothing - Immer handles it)
-      // No toast needed if item wasn't found
-      // No need to save to localStorage as state didn't change
-      // No explicit return needed here, Immer keeps the original state
     },
 
     // Increase quantity of an item
@@ -134,8 +130,7 @@ const cartSlice = createSlice({
     // Clear the entire cart
     clearCart: (state) => { // Receive state even if not used, good practice
       saveCartToLocalStorage([]); // Save empty array
-      // toast.success("Cart cleared!"); // Moved toast to component where it's dispatched
-      // Return a new empty array to replace the state
+
       return [];
     },
   },
