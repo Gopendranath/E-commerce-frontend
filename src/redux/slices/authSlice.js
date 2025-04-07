@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 // Create an async thunk for login request
@@ -7,6 +8,7 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, 
     // Send a POST request to login API
     const response = await axios.post("https://reqres.in/api/login", credentials);
     localStorage.setItem("token", response.data.token);
+    toast.success("Login successful!");
     return response.data;
   } catch (error) {
     return rejectWithValue("Invalid credentials");

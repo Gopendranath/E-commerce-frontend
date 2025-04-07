@@ -5,6 +5,7 @@ import { LuSearch } from "react-icons/lu";
 import { FaCartArrowDown } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { TbMenu2 } from "react-icons/tb";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
 import SearchModal from './Seachmodal'
@@ -30,8 +31,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success("Logout successful!");
     setIsMobileMenuOpen(false);
     setProfilemenu(false);
+
   };
 
   const handleOpenModal = () => {

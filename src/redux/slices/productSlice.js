@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 // async thunk to fetch products from API
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  // Send GET request to API and return response data
   const response = await axios.get("https://fakestoreapi.com/products");
   return response.data;
 });
@@ -29,6 +29,7 @@ const productSlice = createSlice({
       // Handle fetchProducts rejected state
       .addCase(fetchProducts.rejected, (state) => {
         state.status = "failed";
+        toast.error("Error fetching products");
       });
   },
 });

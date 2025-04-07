@@ -25,7 +25,7 @@ const AboutPage = () => {
             About {storeName}
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            We're dedicated to bringing you the finest [Your Product Niche, e.g., handcrafted goods, tech gadgets, sustainable fashion] with a focus on quality, innovation, and customer satisfaction.
+            We're dedicated to bringing you the finest selection of handcrafted goods, tech gadgets, sustainable fashion with a focus on quality, innovation, and customer satisfaction.
           </p>
         </div>
       </section>
@@ -44,10 +44,10 @@ const AboutPage = () => {
             <div className="order-2 md:order-1">
               <h2 className="text-3xl font-semibold text-gray-800 mb-4">Our Journey</h2>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                Founded in [Year], {storeName} began with a simple vision: to [State your core vision, e.g., make unique products accessible, solve a specific customer problem]. Frustrated by [The problem you observed], we set out to build a platform that offers [Your solution/value proposition].
+                Founded in 2025, {storeName} began with a simple vision: to make unique products accessible, solve a specific customer problem. Frustrated by the lack of a platform that offered niche products, we set out to build a platform that offers a diverse range of handcrafted goods.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                From our humble beginnings in [Location or context, e.g., a small workshop, a college dorm], we've grown into [Current status, e.g., a thriving online community, a trusted source for...], always staying true to our core principles.
+                From our humble beginnings in a small office, we've grown into a thriving online community, a trusted source for unique products, and a place where people come together to share their passions, always staying true to our core principles.
               </p>
             </div>
           </div>
@@ -74,8 +74,8 @@ const AboutPage = () => {
             {/* Value Card 3: Integrity / Innovation / Sustainability etc. */}
             <div className="bg-white p-6 rounded-lg shadow-md text-center transform hover:scale-105 transition-transform duration-300">
                <div className="text-4xl mb-3 text-purple-600">💡</div> {/* Placeholder Icon */}
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">[Your Third Value, e.g., Innovation]</h3>
-              <p className="text-gray-600 text-sm">[Description of your third core value, e.g., We constantly seek new ideas and improvements to enhance your experience.]</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Innovation</h3>
+              <p className="text-gray-600 text-sm">We constantly seek new ideas and improvements to enhance your experience.</p>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@ const AboutPage = () => {
             ))}
           </div>
            <p className="text-center text-gray-600 mt-8 max-w-2xl mx-auto">
-             We're a passionate group of [Describe your team, e.g., designers, tech enthusiasts, curators] united by our love for [Your niche] and our commitment to our customers.
+             We're a passionate group of people who share a common love for {storeName}. Our team is made up of creative designers, tech enthusiasts, curators united by our love for {storeName} and our commitment to our customers.
            </p>
         </div>
       </section>

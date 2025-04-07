@@ -37,13 +37,11 @@ function WishListPage() {
 
   const handleRemoveItem = (item) => {
     dispatch(removeFromWishlist({ id: item.id }));
-    // Update local state immediately for responsiveness, relying on useEffect/storage event for cross-tab sync
     setWishlistItems(prevItems => prevItems.filter(i => i.id !== item.id));
   };
 
   const handleAddItemToCart = (item) => {
     dispatch(addToCart(item));
-    alert(`${item.title || 'Item'} added to cart!`);
   };
 
   const handleAddAllToCart = () => {
@@ -52,7 +50,6 @@ function WishListPage() {
       dispatch(addMultipleToCart(currentWishlist));
       dispatch(clearWishList()); // This should also update localStorage via the slice/middleware
       setWishlistItems([]); // Update local state
-      alert(`${currentWishlist.length} item(s) added to cart and removed from wishlist!`);
     } else {
       alert("Your wishlist is empty.");
     }

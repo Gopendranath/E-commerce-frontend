@@ -1,5 +1,5 @@
-// src/pages/ContactPage.js
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const ContactPage = () => {
   // State to manage form inputs
@@ -23,9 +23,8 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you shortly.');
-    // Optionally clear the form
     setFormData({ name: '', email: '', subject: '', message: '' });
+    toast.success('Form submitted successfully!');
   };
 
   return (

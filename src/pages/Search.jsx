@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/slices/productSlice';
+import ProductCard from '../components/Productcard';
 
 const SearchResultsPage = () => {
     const location = useLocation();
@@ -59,19 +60,7 @@ const SearchResultsPage = () => {
                 {searchResults.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {searchResults.map((product) => (
-                            <div
-                                key={product.id}
-                                className="bg-white/80 backdrop-blur-sm rounded-xl shadow-md p-4 hover:shadow-lg transition-all duration-300"
-                            >
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-48 object-cover rounded-lg mb-4"
-                                />
-                                <h3 className="text-lg font-medium text-gray-700">{product.name}</h3>
-                                <p className="text-sm text-gray-500">{product.category}</p>
-                                <p className="text-base font-semibold text-gray-900 mt-2">{product.price}</p>
-                            </div>
+                            <ProductCard key={product.id} item={product} />
                         ))}
                     </div>
                 ) : (

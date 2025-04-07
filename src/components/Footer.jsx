@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../assets/ULtrastore.svg';
+import { toast } from 'react-hot-toast';
 
 const Footer = () => {
   const [email, setEmail] = React.useState('');
@@ -16,6 +17,7 @@ const Footer = () => {
         alert('Please enter a valid email address.'); // Basic validation
         return;
     }
+    toast.success('Subscribed successfully!');
     console.log('Subscribing with email:', email);
     // alert(`Thank you for subscribing with ${email}!`);
     setEmail('');

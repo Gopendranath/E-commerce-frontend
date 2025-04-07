@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 // Function to load wishList data from localStorage
 const wishListFromLocalStorage = () => {
@@ -15,8 +16,10 @@ const wishListSlice = createSlice({
             const itemIndex = state.findIndex((product) => product.id === action.payload.id);
             if (itemIndex !== -1) {
                 state.splice(itemIndex, 1);
+                toast.error(`${action.payload.title.split(" ").slice(0, 2).join(" ")} removed from wishList`);
             } else {
                 state.push({ ...action.payload });
+                toast.success(`${action.payload.title.split(" ").slice(0, 2).join(" ")} added to wishList`);
             }
             localStorage.setItem("wishList", JSON.stringify(state));
         },
@@ -28,6 +31,7 @@ const wishListSlice = createSlice({
             const itemIndex = state.findIndex((product) => product.id === action.payload.id);
             if (itemIndex !== -1) {
                 state.splice(itemIndex, 1);
+                toast.error(`removed from wishList`);
             }
             localStorage.setItem("wishList", JSON.stringify(state));
         },

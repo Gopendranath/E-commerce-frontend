@@ -28,6 +28,7 @@ const App = () => {
 
   return (
     <div className="bg-gradient-to-tr from-purple-200 to-orange-100 min-h-screen flex flex-col">
+      <Toaster position="top-center" />
       {/* Conditional Navbar */}
       {!isLoginPage && <Navbar />}
       {/* <Navbar/> */}
@@ -51,7 +52,6 @@ const App = () => {
         </Routes>
       </main>
       {/* Toaster for notifications - position is usually absolute/fixed, so placement here is fine */}
-      <Toaster />
 
       {/* Conditional Footer */}
       {!isLoginPage && <Footer />}

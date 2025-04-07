@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Optional: for redirection
 import { clearCart } from '../redux/slices/cartSlice'; // Adjust path as needed
+import { toast } from 'react-hot-toast';
 
 function CheckoutPage() {
   const dispatch = useDispatch();
@@ -103,6 +104,7 @@ function CheckoutPage() {
       console.log("Order Placed Successfully!");
       dispatch(clearCart());
       navigate('/order-confirmation', { state: { orderId: 'SIMULATED_12345' } });
+      toast.success("Order Placed Successfully!");
 
     } catch (apiError) {
       console.error("Order placement failed:", apiError);

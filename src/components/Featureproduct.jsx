@@ -69,7 +69,7 @@ const Featureproduct = () => {
           </h5>
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:gap-6">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
         {items.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}

@@ -114,12 +114,6 @@ const Login = () => {
               {error}
             </div>
           )}
-
-          {token && (
-            <div className="p-3 mt-4 text-sm text-green-700 bg-green-100 rounded-md">
-              Logged in successfully
-            </div>
-          )}
         </form>
       </div>
     </div>

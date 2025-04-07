@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'; // Add useEffect import
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity, clearCart } from '../redux/slices/cartSlice';
+import { toast } from 'react-hot-toast';
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart);
@@ -32,6 +33,11 @@ const CartPage = () => {
   const calculateCartSubtotal = () => {
     return cartItems.reduce((total, item) => total + calculateItemSubtotal(item), 0);
   };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+    toast.success("Cart cleared!");
+  }
 
   const cartSubtotal = calculateCartSubtotal();
   const shippingEstimate = cartSubtotal > 50 || cartItems.length === 0 ? 0 : 7.99;
@@ -153,7 +159,7 @@ const CartPage = () => {
                 </button>
               </div>
               <button
-                onClick={() => dispatch(clearCart())}
+                onClick={handleClearCart}
                 className="px-4 py-2 bg-orange-400 text-white rounded-md hover:bg-orange-500 transition duration-200 font-semibold"
               >
                 Clear Cart
