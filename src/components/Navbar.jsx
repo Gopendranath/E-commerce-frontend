@@ -21,14 +21,17 @@ const Navbar = () => {
 
   const { token } = useSelector((state) => state.auth);
 
+  // Get cart count
   const totalCartCount = useSelector((state) =>
     state.cart.reduce((sum, item) => sum + item.quantity, 0)
   );
 
+  // Get wishlist count
   const totalWishListCount = useSelector((state) => state.wishlist.length);
 
   const dispatch = useDispatch();
 
+  // Function to handle logout
   const handleLogout = () => {
     dispatch(logout());
     toast.success("Logout successful!");

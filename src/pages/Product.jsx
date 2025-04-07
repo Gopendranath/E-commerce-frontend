@@ -8,11 +8,13 @@ import Productcard from '../components/Productcard';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import clsx from 'clsx';
 
+// Rating component
 const Rating = ({ rate, count }) => {
   const fullStars = Math.floor(rate);
   const halfStar = rate % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
   
+  // Render the rating stars
   return (
     <div className="flex items-center mb-3 text-lg">
       {[...Array(fullStars)].map((_, i) => <span key={i} className="text-yellow-400">⭐</span>)}
@@ -23,6 +25,7 @@ const Rating = ({ rate, count }) => {
   );
 };
 
+// Product component
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -33,10 +36,12 @@ const Product = () => {
   const productId = parseInt(id);
   const product = items.find((item) => item.id === productId);
 
+  // Filter similar products
   const similarProducts = product
     ? items.filter((item) => item.category === product.category && item.id !== product.id).slice(0, 4)
     : [];
 
+    // Check if the product is wishlisted
   useEffect(() => {
     if (product) {
       const wishList = JSON.parse(localStorage.getItem('wishList')) || [];
@@ -44,6 +49,7 @@ const Product = () => {
     }
   }, [product]);
 
+  // Fetch products
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -59,6 +65,7 @@ const Product = () => {
     }
   };
 
+  // Render loading state
   if (status === 'loading' || !items || items.length === 0) {
     return <div className="text-center py-10 text-gray-500">Loading product details...</div>;
   }
@@ -80,12 +87,13 @@ const Product = () => {
             {isWishlisted ? <AiFillHeart className="w-5 h-5 text-red-500" /> : <AiOutlineHeart className="w-5 h-5 text-gray-600" />}
           </button>
         </div>
-
+        {/* // Product details */}
         <div className="md:w-3/5 flex flex-col">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">{product.title}</h1>
           <Rating rate={product.rating.rate} count={product.rating.count} />
           <p className="text-3xl font-bold text-[#B12704] mb-4">${product.price.toFixed(2)}</p>
           <p className="text-gray-600 mb-6 text-sm leading-relaxed">{product.description.split('.')[0]}.</p>
+          {/* // Add to Cart button */}
           <button
             onClick={handleAddToCart}
             className="w-full md:max-w-xs px-6 py-2.5 bg-[#FF9900] text-gray-900 font-semibold rounded-md border border-[#a88734] hover:bg-[#f3a847] transition duration-200"

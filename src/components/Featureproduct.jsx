@@ -12,6 +12,7 @@ const Featureproduct = () => {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.products);
 
+  // Fetch products when the component mounts
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -51,12 +52,14 @@ const Featureproduct = () => {
     );
   }
 
+  // Group items by category
   const itemRows = [
     { title: 'Electronics', items: electronics },
     { title: 'Jewelery', items: jewelery },
     { title: 'Clothing', items: clothing },
   ];
 
+  // Function to render an item row
   const ItemRow = ({ title, items }) => (
     <div className="mb-6 sm:mb-8">
       <div className="flex justify-between items-center mb-3 sm:mb-4 px-2 sm:px-0">
@@ -77,6 +80,7 @@ const Featureproduct = () => {
     </div>
   );
 
+  // Render the item rows
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-800 mb-6 sm:mb-8 text-center">

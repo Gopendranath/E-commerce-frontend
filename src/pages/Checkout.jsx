@@ -9,6 +9,7 @@ function CheckoutPage() {
   const navigate = useNavigate(); // Optional
   const [cartItems, setcartItems] = React.useState([]);
 
+  // Fetch cart items
   useEffect(
     () => {
       const items = localStorage.getItem('cart');
@@ -17,7 +18,7 @@ function CheckoutPage() {
       }
     },
     []
-  )// Adjust selector based on your store structure
+  )
 
   // State for form inputs
   const [shippingInfo, setShippingInfo] = React.useState({
@@ -31,6 +32,7 @@ function CheckoutPage() {
     phone: '',
   });
 
+  // State for billing
   const [billingSameAsShipping, setBillingSameAsShipping] = React.useState(true);
   const [billingInfo, setBillingInfo] = React.useState({ ...shippingInfo }); // Initialize same as shipping
 
@@ -41,6 +43,7 @@ function CheckoutPage() {
     cvv: ''
   });
 
+  // State for order processing
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [error, setError] = React.useState(null);
 
@@ -65,6 +68,7 @@ function CheckoutPage() {
     setCardInfo(prev => ({ ...prev, [name]: value }));
   }
 
+  // --- Checkbox Handler ---
   const handleBillingCheckbox = (e) => {
     setBillingSameAsShipping(e.target.checked);
     if (e.target.checked) {
@@ -85,6 +89,7 @@ function CheckoutPage() {
   const taxes = subtotal * taxRate;
   const total = subtotal + shippingCost + taxes;
 
+  // --- Submit Handler ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -98,6 +103,7 @@ function CheckoutPage() {
       totals: { subtotal, shippingCost, taxes, total },
     });
 
+    // Simulate API call
     try {
       await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
 
@@ -114,6 +120,7 @@ function CheckoutPage() {
     }
   };
 
+  // --- Render ---
   if (cartItems.length === 0 && !isProcessing) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
@@ -125,6 +132,7 @@ function CheckoutPage() {
       </div>
     );
   }
+
 
   return (
     <div className="container mx-auto px-4 py-8 lg:py-12">
@@ -194,7 +202,6 @@ function CheckoutPage() {
               {!billingSameAsShipping && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Duplicate shipping fields structure here, but use handleBillingChange */}
-                  {/* Example: Full Name */}
                   <div className="sm:col-span-2">
                     <label htmlFor="billingFullName" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                     <input type="text" id="billingFullName" name="fullName" value={billingInfo.fullName} onChange={handleBillingChange} required className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />

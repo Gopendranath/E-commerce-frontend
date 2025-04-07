@@ -10,11 +10,13 @@ const ProductCard = ({ item }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const dispatch = useDispatch();
 
+  // Check if the product is wishlisted
   useEffect(() => {
     const wishList = JSON.parse(localStorage.getItem('wishList')) || [];
     setIsWishlisted(wishList.some((product) => product.id === item.id));
   }, [item.id]);
 
+  // Toggle wishlist
   const handleWishList = () => {
     dispatch(toggleWishList(item));
     setIsWishlisted((prev) => !prev);
@@ -65,7 +67,7 @@ const ProductCard = ({ item }) => {
               </span>
             )}
           </div>
-
+          {/* // Product Title */}
           <Link to={`/product/${item.id}`} className="group">
             <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 group-hover:text-violet-600 transition-colors duration-200 line-clamp-1">
               {item.title}
@@ -91,6 +93,7 @@ const ProductCard = ({ item }) => {
                   </span>
                 </div>
               </div>
+              {/* // Add to Cart Button */}
               <button
                 onClick={() => dispatch(addToCart(item))}
                 className="w-full sm:w-auto cursor-pointer bg-violet-600 text-white py-2 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-violet-700 focus:ring-2 focus:ring-violet-300 focus:outline-none transition-all duration-200"

@@ -6,6 +6,7 @@ import wishListReducer from "./slices/wishListSlice";
 
 
 const store = configureStore({
+  // Reducers to be used
   reducer: {
     products: productReducer,
     cart: cartReducer,

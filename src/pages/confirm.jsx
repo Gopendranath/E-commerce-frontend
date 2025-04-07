@@ -4,8 +4,10 @@ import { useLocation, Link } from 'react-router-dom';
 function OrderConfirmationPage() {
   const location = useLocation();
 
+  // Extract order ID from location state
   const orderId = location.state?.orderId;
 
+  // Render confirmation content
   const confirmationContent = orderId ? (
     <>
       <p className="text-lg text-gray-700 mb-2">

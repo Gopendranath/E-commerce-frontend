@@ -100,15 +100,6 @@ const ContactPage = () => {
               </div>
             </div>
 
-             {/* Optional: Map Placeholder/Embed Area */}
-             {/* <div className="pt-4">
-               <h3 className="text-lg font-medium text-gray-700 mb-2">Find Us Here</h3>
-               <div className="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden">
-                 Replace with your map embed iframe or a static map image
-                 <img src="https://via.placeholder.com/600x400.png?text=Map+Placeholder" alt="Map placeholder" className="object-cover"/>
-               </div>
-             </div> */}
-
           </div>
 
           {/* --- Contact Form Section --- */}

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
+  // Sample FAQ data
   const faqData = [
     {
       question: "What is the purpose of this application?",
@@ -27,6 +28,7 @@ const FAQ = () => {
       <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
         Frequently Asked Questions
       </h2>
+      {/* // Add your FAQ content here */}
       <div className="space-y-4">
         {faqData.map((item, index) => (
           <div

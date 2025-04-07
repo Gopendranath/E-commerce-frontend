@@ -5,6 +5,7 @@ import Icon from '../assets/ULtrastore.svg';
 const AboutPage = () => {
   const storeName = "ULtrastore";
 
+  // Dummy data for team members
   const teamMembers = [
     { id: 1, name: "Alex Johnson", title: "Founder & CEO", img: "https://i.pravatar.cc/300?img=1" },
     { id: 2, name: "Maria Garcia", title: "Head of Product", img: "https://i.pravatar.cc/300?img=2" },
@@ -13,6 +14,7 @@ const AboutPage = () => {
   ];
 
   return (
+    // Main Container
     <div className="bg-white text-gray-800">
       <section className="relative bg-gradient-to-tl from-purple-200 via-white to-indigo-200 py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
@@ -30,6 +32,7 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* // About Us Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

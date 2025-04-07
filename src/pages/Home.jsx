@@ -10,6 +10,7 @@ const Home = () => {
   }, []);
 
   return (
+    // Main container for the home page
     <main className="min-h-screen">
       <div className="container mx-auto sm:px-6 lg:px-8 py-6 sm:py-8">
         <section>

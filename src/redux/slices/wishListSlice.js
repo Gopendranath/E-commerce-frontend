@@ -12,6 +12,7 @@ const wishListSlice = createSlice({
     name: "wishList",
     initialState: wishListFromLocalStorage(),
     reducers: {
+        // wishList actions 
         toggleWishList: (state, action) => {
             const itemIndex = state.findIndex((product) => product.id === action.payload.id);
             if (itemIndex !== -1) {
@@ -23,10 +24,12 @@ const wishListSlice = createSlice({
             }
             localStorage.setItem("wishList", JSON.stringify(state));
         },
+        // wishList actions
         clearWishList: () => {
             localStorage.removeItem("wishList");
             return [];
         },
+        // wishList actions
         removeOne: (state, action) => {
             const itemIndex = state.findIndex((product) => product.id === action.payload.id);
             if (itemIndex !== -1) {

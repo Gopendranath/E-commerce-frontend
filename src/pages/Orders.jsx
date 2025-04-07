@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // For linking to order details
-import clsx from 'clsx'; // Optional: for cleaner conditional classes (npm install clsx)
+import clsx from 'clsx';
 
+// --- Placeholder Data  ---
 const mockOrders = [
   {
     id: 'ORD78A2BC',
@@ -107,6 +108,7 @@ const fetchOrders = () => {
 const OrderCard = ({ order }) => {
   const maxVisibleItems = 3; // Show max 3 item previews
 
+  // Define status classes
   const statusClasses = {
     'Delivered': 'bg-green-100 text-green-800',
     'Shipped': 'bg-blue-100 text-blue-800',
@@ -186,6 +188,7 @@ const OrdersPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch orders
   useEffect(() => {
     setIsLoading(true);
     setError(null);
@@ -203,6 +206,7 @@ const OrdersPage = () => {
   }, []);
 
 
+  // Render orders
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
@@ -219,6 +223,7 @@ const OrdersPage = () => {
     );
   }
 
+  // Check if orders exist
   if (orders.length === 0) {
     return (
        <div className="container mx-auto px-4 py-12 text-center">

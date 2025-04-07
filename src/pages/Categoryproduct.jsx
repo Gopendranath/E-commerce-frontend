@@ -11,7 +11,7 @@ const LoadingSpinner = () => (
 );
 
 const Collection = () => {
-  const { collection } = useParams(); // URL parameter (e.g., electronics, jewelry, clothing)
+  const { collection } = useParams(); // Get collection name from URL
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.products);

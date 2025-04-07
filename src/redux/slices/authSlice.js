@@ -24,7 +24,6 @@ const authSlice = createSlice({
     error: null,
   },
   reducers: {
-    // Implement logout reducer to clear token from state and localStorage
     logout: (state) => {
       state.token = null;
       localStorage.removeItem("token");

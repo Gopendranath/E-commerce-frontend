@@ -10,6 +10,7 @@ const LoadingSpinner = () => (
   </div>
 );
 
+// Selectedfeature component
 const Selectedfeature = () => {
   const { id } = useParams();
   const [currentProducts, setCurrentProducts] = useState([]);
@@ -20,6 +21,7 @@ const Selectedfeature = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  // Filter products based on category
   useEffect(() => {
     if (items && items.length > 0 && id) {
       if (id === 'electronics') {
@@ -37,6 +39,7 @@ const Selectedfeature = () => {
     }
   }, [items, id]);
 
+  // Render loading spinner or error message
   if (status === 'loading') {
     return <LoadingSpinner />;
   }
@@ -54,6 +57,7 @@ const Selectedfeature = () => {
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-6 sm:mb-8 capitalize">
         Category: {id}
       </h2>
+      {/* // Render products */}
       {currentProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {currentProducts.map((product) => (

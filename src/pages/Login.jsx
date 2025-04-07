@@ -16,6 +16,7 @@ const Login = () => {
 
   const { status, error, token } = useSelector((state) => state.auth);
 
+  // Handle form submission
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password })).then((result) => {
@@ -27,6 +28,7 @@ const Login = () => {
     })
   };
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -99,6 +101,7 @@ const Login = () => {
           </div>
 
           <div>
+            {/* // Add forgot password link */}
             <button
               onClick={handleLogin}
               disabled={status === "loading" || !email || !password || token}

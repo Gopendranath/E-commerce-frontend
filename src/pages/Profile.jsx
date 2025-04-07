@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from "../redux/slices/authSlice";
 import clsx from 'clsx'; // Optional: for cleaner conditional classes (npm install clsx)
 
-// --- Placeholder Data (Replace with actual data from state/context/API) ---
+// --- Placeholder Data  ---
 const placeholderUser = {
   name: 'Alex Thompson',
   email: 'alex.thompson@example.com',
   joinDate: '2023-05-15',
 };
 
+// --- Placeholder Data  ---
 const placeholderOrders = [
   { id: 'ORD123', date: '2024-03-10', total: 75.50, status: 'Delivered' },
   { id: 'ORD456', date: '2024-03-22', total: 120.00, status: 'Processing' },

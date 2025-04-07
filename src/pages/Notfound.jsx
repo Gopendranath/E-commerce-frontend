@@ -55,7 +55,6 @@ const NotFound = () => {
             Browse Collections
           </Link>
         </div>
-         {/* ... (end of your enhanced NotFound content) ... */}
       </div>
     </div>
   );

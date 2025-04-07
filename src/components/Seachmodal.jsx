@@ -6,6 +6,7 @@ const SearchModal = ({ isOpen, onClose }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
+  // Close modal when Escape key is pressed
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === 'Escape' && isOpen) {
@@ -16,6 +17,7 @@ const SearchModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
+  // Function to handle search
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -24,6 +26,7 @@ const SearchModal = ({ isOpen, onClose }) => {
     }
   };
 
+  // Prevent scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -61,6 +64,7 @@ const SearchModal = ({ isOpen, onClose }) => {
               autoFocus
               aria-label="Search products"
             />
+            {/* // Submit Button */}
             <button
               type="submit"
               className="absolute right-0 p-3 text-gray-500 hover:text-blue-500 transition-colors duration-200"
@@ -75,6 +79,7 @@ const SearchModal = ({ isOpen, onClose }) => {
         <div className="mt-6">
           <p className="text-sm text-gray-500 mb-2">Try searching for products, categories, or brands</p>
           <div className="flex flex-wrap gap-2">
+            {/* // Suggestion Buttons */}
             {['Jewelery', 'Electronics', 'Clothing'].map((suggestion) => (
               <button
                 key={suggestion}

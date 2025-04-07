@@ -7,10 +7,12 @@ const loadCartFromLocalStorage = () => {
   return cartData ? JSON.parse(cartData) : [];
 };
 
+// Create cart slice
 const cartSlice = createSlice({
   name: "cart",
   initialState: loadCartFromLocalStorage(),
   reducers: {
+    // Cart actions
     addToCart: (state, action) => {
       const item = state.find((product) => product.id === action.payload.id);
       if (item) {
@@ -22,6 +24,7 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(state));
     },
+    // Cart actions
     addMultipleToCart: (state, action) => {
       const items = action.payload;
       items.forEach((item) => {
@@ -35,18 +38,21 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state));
       toast.success(`${items.length} items added to cart`);
     },
+    // Cart actions
     removeFromCart: (state, action) => {
       const newState = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(newState));
       toast.error(`${action.payload.title.split(" ").slice(0, 2).join(" ")} removed from cart`);
       return newState;
     },
+    // Cart actions 
     increaseQuantity: (state, action) => {
       const item = state.find((product) => product.id === action.payload);
       if (item) item.quantity += 1;
       localStorage.setItem("cart", JSON.stringify(state));
       toast.success(`${item.title.split(" ").slice(0, 2).join(" ")} quantity increased by 1`);
     },
+    // Cart actions
     decreaseQuantity: (state, action) => {
       const item = state.find((product) => product.id === action.payload);
       if (item && item.quantity > 1) {
@@ -55,6 +61,7 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(state));
     },
+    // Cart actions
     clearCart: () => {
       localStorage.removeItem("cart");
       return [];
