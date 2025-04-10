@@ -31,7 +31,11 @@ This is a frontend application built using **ReactJS** and **TailwindCSS**, inte
 <!-- Add screenshots here if you have them -->
 ## 📸 Screenshots
 
-![Login Page](./Screenshot/Login.png) ![Product List](./Screenshot/list.png) ![Product Details](./Screenshot/Product.png)
+<p>
+  <img src="./Screenshots/Login.png" alt="Login Page" style="margin-right: 10px; width: 30%;" />
+  <img src="./Screenshots/list.png" alt="Product List" style="margin-right: 10px; width: 30%;" />
+  <img src="./Screenshots/Product.png" alt="Product Details" style="width: 30%;" />
+</p>
 
 ## 🛠️ Installation & Setup
 
