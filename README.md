@@ -28,10 +28,10 @@ This is a frontend application built using **ReactJS** and **TailwindCSS**, inte
 - **Redux Toolkit** - for state management
 - **React Icons** - for icons
 
+<!-- Add screenshots here if you have them -->
 ## 📸 Screenshots
 
-<!-- Add screenshots here if you have them -->
-> _Login Page | Product List | Product Details_
+![Login Page](./Screenshot/Login.png) ![Product List](./Screenshot/list.png) ![Product Details](./Screenshot/Product.png)
 
 ## 🛠️ Installation & Setup
 
