@@ -88,7 +88,7 @@ const cartSlice = createSlice({
 
     // Remove item completely from cart
     removeFromCart: (state, action) => {
-      const itemIdToRemove = action.payload; // action.payload is the ID
+      const itemIdToRemove = action.payload;
       // Find the item *before* filtering to get its details for the toast
       const itemToRemove = state.find((item) => item.id === itemIdToRemove);
 
