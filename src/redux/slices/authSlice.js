@@ -6,7 +6,12 @@ import axios from "axios";
 export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, { rejectWithValue }) => {
   try {
     // Send a POST request to login API
-    const response = await axios.post("https://reqres.in/api/login", credentials);
+    const response = await axios.post("https://reqres.in/api/login", credentials,  {
+      headers: {
+        'x-api-key': "reqres-free-v1",
+        "Content-Type": "application/json",
+      },
+    });
     localStorage.setItem("token", response.data.token);
     toast.success("Login successful!");
     return response.data;
